@@ -1,9 +1,12 @@
 package src.ManagementSystem.Domain;
 
+import org.springframework.data.mongodb.core.mapping.Field;
 import src.ManagementSystem.DTOs.AssetCreationDTO;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
+import src.ManagementSystem.Domain.ValueObject.AssetPhysicalId;
+import src.ManagementSystem.Domain.ValueObject.MaterialType;
 
 import java.util.UUID;
 
@@ -13,9 +16,18 @@ public class Asset {
 
     @Id
     private String assetId;
+
+    @Field
     private String assetName;
-    private String physicalId;
-    private String materialType;
+
+    @Field
+    private AssetPhysicalId physicalId;
+
+    @Field
+    private MaterialType type;
+
+    @Field
+    private MaterialType subType;
 
     public Asset() {} 
 
@@ -23,6 +35,7 @@ public class Asset {
         this.assetName = dto.getAssetName();
         this.assetId = UUID.randomUUID().toString();
         this.physicalId = dto.getPhysicalId();
-        this.materialType = "Default";
+        this.type = dto.getType();
+        this.subType = dto.getSubType();
     }
 }
