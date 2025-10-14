@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import src.ManagementSystem.Domain.ValueObject.AssetPhysicalId;
+import src.ManagementSystem.Domain.ValueObject.LifeStage;
 import src.ManagementSystem.Domain.ValueObject.MaterialType;
 
 import java.util.UUID;
@@ -29,6 +30,10 @@ public class Asset {
     @Field
     private MaterialType subType;
 
+    public boolean isAssemblyCreationSupported;
+
+    public LifeStage lifeStage;
+
     public Asset() {} 
 
     public Asset(AssetCreationDTO dto) {
@@ -37,5 +42,7 @@ public class Asset {
         this.physicalId = dto.getPhysicalId();
         this.type = dto.getType();
         this.subType = dto.getSubType();
+        this.isAssemblyCreationSupported = dto.isAssemblyCreationSupported();
+        this.lifeStage = dto.getLifeStage();
     }
 }
