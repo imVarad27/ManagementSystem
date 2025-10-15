@@ -11,6 +11,10 @@ public class AssetService {
     @Autowired
     private AssetRepository assetRepository;
 
+    AssetService(AssetRepository assetRepository){
+        this.assetRepository = assetRepository;
+    }
+
     public void createAsset(AssetCreationDTO dto) {
         Asset asset = new Asset(dto);
         assetRepository.save(asset);

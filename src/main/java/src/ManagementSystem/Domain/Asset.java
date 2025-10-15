@@ -5,10 +5,9 @@ import src.ManagementSystem.DTOs.AssetCreationDTO;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
-import src.ManagementSystem.Domain.ValueObject.AssetPhysicalId;
-import src.ManagementSystem.Domain.ValueObject.LifeStage;
-import src.ManagementSystem.Domain.ValueObject.MaterialType;
+import src.ManagementSystem.Domain.ValueObject.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Setter
@@ -34,6 +33,12 @@ public class Asset {
 
     public LifeStage lifeStage;
 
+    public Location location;
+
+    public List<Property> properties;
+
+    public List<String> reportReferenceIds;
+
     public Asset() {} 
 
     public Asset(AssetCreationDTO dto) {
@@ -44,5 +49,7 @@ public class Asset {
         this.subType = dto.getSubType();
         this.isAssemblyCreationSupported = dto.isAssemblyCreationSupported();
         this.lifeStage = dto.getLifeStage();
+        this.properties = dto.getProperties();
+        this.reportReferenceIds = dto.getReportReferenceIds();
     }
 }
