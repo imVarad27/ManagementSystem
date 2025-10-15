@@ -7,8 +7,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import static java.lang.Integer.parseInt;
-
 @Getter
 public class Property {
     private final String name;
@@ -57,6 +55,8 @@ public class Property {
         this.isPhysical = isPhysical;
         this.isDynamic = isDynamic;
         this.isMandatory = isMandatory;
+
+        validateValue(value);
     }
 
     private void validateValue(String val) {
@@ -76,18 +76,18 @@ public class Property {
         }
     }
 
-    private static int parseInt(String s) {
+    private static void parseInt(String s) {
         try {
-            return Integer.parseInt(s);
+            Integer.parseInt(s);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(
                     "Field '" + "value" + "' must be an Integer but was '" + s + "'");
         }
     }
 
-    private static double parseDouble(String s) {
+    private static void parseDouble(String s) {
         try {
-            return Double.parseDouble(s);
+            Double.parseDouble(s);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(
                     "Field '" + "value" + "' must be a Double but was '" + s + "'");

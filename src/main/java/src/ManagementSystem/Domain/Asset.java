@@ -39,8 +39,6 @@ public class Asset {
 
     public List<String> reportReferenceIds;
 
-    public Asset() {} 
-
     public Asset(AssetCreationDTO dto) {
         this.assetName = dto.getAssetName();
         this.assetId = UUID.randomUUID().toString();
