@@ -19,6 +19,10 @@ public class AssetCreationDTO {
     private List<Property> properties;
     private List<String> reportReferenceIds;
 
+    public Boolean isAssemblyCreationSupported() {
+        return isAssemblyCreationSupported;
+    }
+
     public AssetCreationDTO() {}
 
     public AssetCreationDTO(String assetName, AssetPhysicalId physicalId,

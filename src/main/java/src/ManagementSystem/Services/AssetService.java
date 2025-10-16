@@ -1,5 +1,6 @@
 package src.ManagementSystem.Services;
 
+import org.springframework.dao.DataAccessException;
 import src.ManagementSystem.DTOs.AssetCreationDTO;
 import src.ManagementSystem.Domain.Asset;
 import src.ManagementSystem.Repository.AssetRepository;
@@ -11,12 +12,12 @@ public class AssetService {
     @Autowired
     private AssetRepository assetRepository;
 
-    AssetService(AssetRepository assetRepository){
-        this.assetRepository = assetRepository;
-    }
-
-    public void createAsset(AssetCreationDTO dto) {
-        Asset asset = new Asset(dto);
-        assetRepository.save(asset);
+    public Asset createAsset(AssetCreationDTO dto) {
+        try {
+            Asset asset = new Asset(dto);
+            return assetRepository.save(asset);
+        } catch (DataAccessException e) {
+            throw new RuntimeException("Failed to save asset", e);
+        }
     }
 }

@@ -1,6 +1,9 @@
 package src.ManagementSystem.Controller;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import src.ManagementSystem.DTOs.AssetCreationDTO;
+import src.ManagementSystem.Domain.Asset;
 import src.ManagementSystem.Services.AssetService;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
@@ -17,9 +20,18 @@ public class AssetController {
     private AssetService assetService;
 
     @PostMapping
-    public String PostAsset(@Valid @RequestBody AssetCreationDTO assetCreationDTO){
-        assetService.createAsset(assetCreationDTO);
-        return "Asset saved successfully";
+    public ResponseEntity<?> createAsset(@Valid @RequestBody AssetCreationDTO assetCreationDTO,
+                                         BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ResponseEntity.badRequest().body("Validation failed");
+        }
+
+        try {
+            Asset createdAsset = assetService.createAsset(assetCreationDTO);
+            return ResponseEntity.ok(createdAsset);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error creating asset: " + e.getMessage());
+        }
     }
 
 }
