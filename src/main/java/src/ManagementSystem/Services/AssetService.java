@@ -12,9 +12,8 @@ public class AssetService {
     @Autowired
     private AssetRepository assetRepository;
 
-    public Asset createAsset(AssetCreationDTO dto) {
+    public Asset createAsset(Asset asset) {
         try {
-            Asset asset = new Asset(dto);
             return assetRepository.save(asset);
         } catch (DataAccessException e) {
             throw new RuntimeException("Failed to save asset", e);

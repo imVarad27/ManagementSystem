@@ -1,40 +1,39 @@
 package src.ManagementSystem.DTOs;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
-import src.ManagementSystem.Domain.ValueObject.AssetPhysicalId;
-import src.ManagementSystem.Domain.ValueObject.LifeStage;
-import src.ManagementSystem.Domain.ValueObject.MaterialType;
-import src.ManagementSystem.Domain.ValueObject.Property;
 
 import java.util.List;
 
 @Getter
 public class AssetCreationDTO {
     private String assetName;
-    private AssetPhysicalId physicalId;
-    private MaterialType type;
-    private MaterialType subType;
-    private boolean isAssemblyCreationSupported;
-    private LifeStage lifeStage;
-    private List<Property> properties;
+    private String physicalId;
+    private String type;
+    private String subType;
+    private boolean assemblyCreationSupported;
+    private String lifeStage;
+    private List<String> properties;
     private List<String> reportReferenceIds;
 
-    public Boolean isAssemblyCreationSupported() {
-        return isAssemblyCreationSupported;
-    }
-
-    public AssetCreationDTO() {}
-
-    public AssetCreationDTO(String assetName, AssetPhysicalId physicalId,
-                            MaterialType type, MaterialType subtype,
-                            boolean isAssemblyCreationSupported, LifeStage lifestage,
-                            List<Property> properties, List<String> reportReferenceIds) {
+    public AssetCreationDTO(){}
+    @JsonCreator
+    public AssetCreationDTO(
+            @JsonProperty("assetName") String assetName,
+            @JsonProperty("physicalId") String physicalId,
+            @JsonProperty("type") String type,
+            @JsonProperty("subType") String subType,
+            @JsonProperty("assemblyCreationSupported") Boolean assemblyCreationSupported,
+            @JsonProperty("lifeStage") String lifeStage,
+            @JsonProperty("properties") List<String> properties,
+            @JsonProperty("reportReferenceIds") List<String> reportReferenceIds) {
         this.assetName = assetName;
         this.physicalId = physicalId;
         this.type = type;
-        this.subType = subtype;
-        this.isAssemblyCreationSupported = isAssemblyCreationSupported;
-        this.lifeStage = lifestage;
+        this.subType = subType;
+        this.assemblyCreationSupported = assemblyCreationSupported;
+        this.lifeStage = lifeStage;
         this.properties = properties;
         this.reportReferenceIds = reportReferenceIds;
     }
