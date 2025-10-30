@@ -20,7 +20,7 @@ public class AssetController {
     private AssetService assetService;
 
     @PostMapping
-    public ResponseEntity<?> createAsset(@Valid @RequestBody Asset asset,
+    public ResponseEntity<?> createAsset(@Valid @RequestBody AssetCreationDTO asset,
                                          BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body("Validation failed");

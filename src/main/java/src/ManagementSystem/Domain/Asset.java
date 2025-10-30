@@ -20,16 +20,29 @@ public class Asset {
     private String assetId;
 
     private String assetName;
-    private String physicalId;
-    private String type;
-    private String subType;
+    private AssetPhysicalId physicalId;
+    private MaterialType  type;
+    private MaterialType  subType;
     private boolean assemblyCreationSupported;
-    private String lifeStage;
-    private String location;
-    private List<String> properties;
+    private LifeStage lifeStage;
+    private Location location;
+    private List<Property> properties;
     private List<String> reportReferenceIds;
 
     public Asset() {
         this.assetId = UUID.randomUUID().toString();
+    }
+
+    public Asset(AssetCreationDTO dto) {
+        this.assetName = dto.getAssetName();
+        this.assetId = UUID.randomUUID().toString();
+        this.physicalId = dto.getPhysicalId();
+        this.type = dto.getType();
+        this.subType = dto.getSubType();
+        this.assemblyCreationSupported = dto.isAssemblyCreationSupported();
+        this.lifeStage = dto.getLifeStage();
+        this.reportReferenceIds = dto.getReportReferenceIds();
+        this.properties = dto.getProperties();
+        this.location = dto.getLocation();
     }
 }
