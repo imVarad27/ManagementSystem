@@ -22,15 +22,15 @@ public class AssetCreationDTO {
     public AssetCreationDTO(){}
     @JsonCreator
     public AssetCreationDTO(
-            @JsonProperty("assetName") String assetName,
-            @JsonProperty("physicalId") AssetPhysicalId physicalId,
-            @JsonProperty("type") MaterialType type,
-            @JsonProperty("subType") MaterialType subType,
-            @JsonProperty("location") Location location,
-            @JsonProperty("assemblyCreationSupported") Boolean assemblyCreationSupported,
-            @JsonProperty("lifeStage") LifeStage lifeStage,
-            @JsonProperty("properties") List<Property> properties,
-            @JsonProperty("reportReferenceIds") List<String> reportReferenceIds) {
+            String assetName,
+            AssetPhysicalId physicalId,
+            MaterialType type,
+            MaterialType subType,
+            Location location,
+            Boolean assemblyCreationSupported,
+            LifeStage lifeStage,
+            List<Property> properties,
+            List<String> reportReferenceIds) {
         this.assetName = assetName;
         this.physicalId = physicalId;
         this.type = type;

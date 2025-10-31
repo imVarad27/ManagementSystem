@@ -1,7 +1,6 @@
 package src.ManagementSystem.Domain;
 
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 import src.ManagementSystem.DTOs.AssetCreationDTO;
 import lombok.Getter;
 import lombok.Setter;
