@@ -1,9 +1,11 @@
 package src.ManagementSystem.DTOs;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
-import src.ManagementSystem.Domain.ValueObject.AssetPhysicalId;
-import src.ManagementSystem.Domain.ValueObject.LifeStage;
-import src.ManagementSystem.Domain.ValueObject.MaterialType;
+import src.ManagementSystem.Domain.ValueObject.*;
+
+import java.util.List;
 
 @Getter
 public class AssetCreationDTO {
@@ -11,20 +13,33 @@ public class AssetCreationDTO {
     private AssetPhysicalId physicalId;
     private MaterialType type;
     private MaterialType subType;
-    private boolean isAssemblyCreationSupported;
+    private Location location;
+    private boolean assemblyCreationSupported;
     private LifeStage lifeStage;
+    private List<Property> properties;
+    private List<String> reportReferenceIds;
 
-    public AssetCreationDTO() {}
-
-    public AssetCreationDTO(String assetName, AssetPhysicalId physicalId,
-                            MaterialType type, MaterialType subtype,
-                            boolean isAssemblyCreationSupported, LifeStage lifestage) {
+    public AssetCreationDTO(){}
+    @JsonCreator
+    public AssetCreationDTO(
+            String assetName,
+            AssetPhysicalId physicalId,
+            MaterialType type,
+            MaterialType subType,
+            Location location,
+            Boolean assemblyCreationSupported,
+            LifeStage lifeStage,
+            List<Property> properties,
+            List<String> reportReferenceIds) {
         this.assetName = assetName;
         this.physicalId = physicalId;
         this.type = type;
-        this.subType = subtype;
-        this.isAssemblyCreationSupported = isAssemblyCreationSupported;
-        this.lifeStage = lifestage;
+        this.subType = subType;
+        this.location = location;
+        this.assemblyCreationSupported = assemblyCreationSupported;
+        this.lifeStage = lifeStage;
+        this.properties = properties;
+        this.reportReferenceIds = reportReferenceIds;
     }
 
 }
