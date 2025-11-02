@@ -1,8 +1,16 @@
 package src.ManagementSystem.Domain.ValueObject;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.persistence.Embeddable;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-public record Location(String location) {
-    @Override
-    public @NotNull String toString() {return location;}
+@Getter
+@Embeddable
+@NoArgsConstructor
+public class Location {
+    private String location;
+
+    public Location(String location) {
+        this.location = location;
+    }
 }
