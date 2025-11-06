@@ -1,11 +1,16 @@
 package src.ManagementSystem.Domain.ValueObject;
 
-public record MaterialType(String type) {
-    @Override
-    public String toString() {
-        return type;
+import jakarta.persistence.Embeddable;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter
+@Embeddable
+@NoArgsConstructor
+public class MaterialType {
+    private String type;
+
+    public MaterialType(String type) {
+        this.type = type;
     }
 }
-
-
-

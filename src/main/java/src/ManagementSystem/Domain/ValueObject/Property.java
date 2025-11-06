@@ -1,5 +1,7 @@
 package src.ManagementSystem.Domain.ValueObject;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import src.ManagementSystem.Domain.Enums.PropertyDataType;
 
@@ -24,39 +26,49 @@ public class Property {
     private final boolean isDynamic;
     private final boolean isMandatory;
 
+    @JsonCreator
     public Property(
-            String name,
-            PropertyDataType dataType,
-            String value,
-            String originalValue,
-            String minimumValue,
-            String displayName,
-            List<String> possibleOptions,
-            String unit,
-            boolean isSubTypeLevel,
-            boolean isCore,
-            boolean isPhysical,
-            boolean isDynamic,
-            boolean isMandatory) {
-
-        this.name = Objects.requireNonNull(name, "name must not be null");
-        this.dataType = Objects.requireNonNull(dataType, "dataType must not be null");
+            @JsonProperty("name") String name,
+            @JsonProperty("dataType") PropertyDataType dataType,
+            @JsonProperty("value") String value,
+            @JsonProperty("originalValue") String originalValue,
+            @JsonProperty("minimumValue") String minimumValue,
+            @JsonProperty("displayName") String displayName,
+            @JsonProperty("possibleOptions") List<String> possibleOptions,
+            @JsonProperty("unit") String unit,
+            @JsonProperty("subTypeLevel") boolean isSubTypeLevel,
+            @JsonProperty("core") boolean isCore,
+            @JsonProperty("physical") boolean isPhysical,
+            @JsonProperty("dynamic") boolean isDynamic,
+            @JsonProperty("mandatory") boolean isMandatory
+    ) {
+        this.name = name;
+        this.dataType = dataType;
         this.value = isDynamic ? value : originalValue;
         this.originalValue = originalValue;
         this.minimumValue = minimumValue;
         this.displayName = displayName;
-        this.possibleOptions = possibleOptions == null
-                ? Collections.emptyList()
-                : List.copyOf(possibleOptions);
+        this.possibleOptions = possibleOptions == null ? List.of() : List.copyOf(possibleOptions);
         this.unit = unit;
-
         this.isSubTypeLevel = isSubTypeLevel;
         this.isCore = isCore;
         this.isPhysical = isPhysical;
         this.isDynamic = isDynamic;
         this.isMandatory = isMandatory;
+    }
 
-        validateValue(value);
+    public static void validateProperty(Property property) {
+        Objects.requireNonNull(property, "Property must not be null");
+        Objects.requireNonNull(property.getName(), "Property name must not be null");
+        Objects.requireNonNull(property.getDataType(), "Property dataType must not be null");
+
+        if (property.getName().trim().isEmpty()) {
+            throw new IllegalArgumentException("Property name must not be empty");
+        }
+        String valueToValidate = property.isDynamic() ? property.getValue() : property.getOriginalValue();
+        if (valueToValidate != null) {
+            property.validateValue(valueToValidate);
+        }
     }
 
     private void validateValue(String val) {

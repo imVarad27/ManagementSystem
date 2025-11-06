@@ -1,47 +1,70 @@
 package src.ManagementSystem.Domain;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-import src.ManagementSystem.DTOs.AssetCreationDTO;
+import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
+import src.ManagementSystem.DTOs.AssetCreationDTO;
+import src.ManagementSystem.Domain.Converter.PropertyListConverter;
 import src.ManagementSystem.Domain.ValueObject.*;
 
 import java.util.List;
 import java.util.UUID;
 
+@Entity
+@Table(name = "assets")
 @Getter
 @Setter
-@Document(collection = "assets")
+@NoArgsConstructor
 public class Asset {
 
     @Id
-    private String assetId;
+    @Column(name = "asset_id", nullable = false, unique = true, updatable = false)
+    private String assetId = UUID.randomUUID().toString();
 
+    @Column(name = "asset_name")
     private String assetName;
+
+    @Embedded
+    @AttributeOverride(name = "physicalId", column = @Column(name = "physical_id"))
     private AssetPhysicalId physicalId;
-    private MaterialType  type;
-    private MaterialType  subType;
+
+    @Embedded
+    @AttributeOverride(name = "type", column = @Column(name = "type"))
+    private MaterialType type;
+
+    @Embedded
+    @AttributeOverride(name = "type", column = @Column(name = "sub_type"))
+    private MaterialType subType;
+
+    @Column(name = "assembly_creation_supported")
     private boolean assemblyCreationSupported;
+
+    @Embedded
     private LifeStage lifeStage;
+
+    @Embedded
     private Location location;
+
+    @Convert(converter = PropertyListConverter.class)
+    @Column(columnDefinition = "TEXT")
     private List<Property> properties;
+
+    @ElementCollection
+    @CollectionTable(name = "asset_report_refs")
+    @Column(name = "report_reference_id")
     private List<String> reportReferenceIds;
 
-    public Asset() {
-        this.assetId = UUID.randomUUID().toString();
-    }
-
     public Asset(AssetCreationDTO dto) {
-        this.assetName = dto.getAssetName();
         this.assetId = UUID.randomUUID().toString();
+        this.assetName = dto.getAssetName();
         this.physicalId = dto.getPhysicalId();
         this.type = dto.getType();
         this.subType = dto.getSubType();
         this.assemblyCreationSupported = dto.isAssemblyCreationSupported();
         this.lifeStage = dto.getLifeStage();
-        this.reportReferenceIds = dto.getReportReferenceIds();
-        this.properties = dto.getProperties();
         this.location = dto.getLocation();
+        this.properties = dto.getProperties();
+        this.reportReferenceIds = dto.getReportReferenceIds();
     }
 }

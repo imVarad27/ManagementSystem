@@ -1,11 +1,27 @@
 package src.ManagementSystem.Domain.ValueObject;
 
+import jakarta.persistence.Embeddable;
+import jakarta.persistence.Embedded;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import src.ManagementSystem.Domain.ValueObject.Constants.LifeStageConstants;
 
 import java.util.List;
 
-public record LifeStage(String Stage, InventoryStatus InventoryStatus)
-{
+@Getter
+@Embeddable
+@NoArgsConstructor
+public class LifeStage {
+    private String stage;
+
+    @Embedded
+    private InventoryStatus inventoryStatus;
+
+    public LifeStage(String stage, InventoryStatus inventoryStatus) {
+        this.stage = stage;
+        this.inventoryStatus = inventoryStatus;
+    }
+
     public static LifeStage prepared() {
         return new LifeStage(LifeStageConstants.PREPARED,
                 new InventoryStatus("Not Ready To Use"));
