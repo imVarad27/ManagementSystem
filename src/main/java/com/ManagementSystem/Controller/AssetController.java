@@ -1,9 +1,9 @@
-package src.ManagementSystem.Controller;
+package com.ManagementSystem.Controller;
 
 import org.springframework.http.ResponseEntity;
-import src.ManagementSystem.DTOs.AssetCreationDTO;
-import src.ManagementSystem.Domain.Asset;
-import src.ManagementSystem.Services.AssetService;
+import com.ManagementSystem.DTOs.AssetCreationDTO;
+import com.ManagementSystem.Domain.Asset;
+import com.ManagementSystem.Services.AssetService;
 import org.springframework.web.bind.annotation.RequestBody;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

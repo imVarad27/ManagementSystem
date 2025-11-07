@@ -1,10 +1,10 @@
-package src.ManagementSystem.Services;
+package com.ManagementSystem.Services;
 
 import org.springframework.dao.DataAccessException;
-import src.ManagementSystem.DTOs.AssetCreationDTO;
-import src.ManagementSystem.Domain.Asset;
-import src.ManagementSystem.Domain.ValueObject.Property;
-import src.ManagementSystem.Repository.AssetRepository;
+import com.ManagementSystem.DTOs.AssetCreationDTO;
+import com.ManagementSystem.Domain.Asset;
+import com.ManagementSystem.Domain.ValueObject.Property;
+import com.ManagementSystem.Repository.AssetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

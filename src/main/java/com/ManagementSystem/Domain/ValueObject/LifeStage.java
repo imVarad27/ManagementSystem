@@ -1,10 +1,10 @@
-package src.ManagementSystem.Domain.ValueObject;
+package com.ManagementSystem.Domain.ValueObject;
 
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.Embedded;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import src.ManagementSystem.Domain.ValueObject.Constants.LifeStageConstants;
+import com.ManagementSystem.Domain.ValueObject.Constants.LifeStageConstants;
 
 import java.util.List;
 

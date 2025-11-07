@@ -1,7 +1,7 @@
-package src.ManagementSystem.Repository;
+package com.ManagementSystem.Repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import src.ManagementSystem.Domain.Asset;
+import com.ManagementSystem.Domain.Asset;
 
 import java.util.Optional;
 

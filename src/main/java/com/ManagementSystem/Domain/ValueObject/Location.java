@@ -1,4 +1,4 @@
-package src.ManagementSystem.Domain.ValueObject;
+package com.ManagementSystem.Domain.ValueObject;
 
 import jakarta.persistence.Embeddable;
 import lombok.Getter;

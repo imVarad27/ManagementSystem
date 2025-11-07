@@ -1,9 +1,9 @@
-package src.ManagementSystem.Domain.Converter;
+package com.ManagementSystem.Domain.Converter;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
-import src.ManagementSystem.Domain.ValueObject.Property;
+import com.ManagementSystem.Domain.ValueObject.Property;
 import java.util.List;
 
 @Converter

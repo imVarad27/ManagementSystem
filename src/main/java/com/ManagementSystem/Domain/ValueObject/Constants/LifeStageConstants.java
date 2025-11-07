@@ -1,4 +1,4 @@
-package src.ManagementSystem.Domain.ValueObject.Constants;
+package com.ManagementSystem.Domain.ValueObject.Constants;
 
 public class LifeStageConstants {
     public static final String AVAILABLE             = "Available";

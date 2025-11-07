@@ -1,12 +1,13 @@
-package src.ManagementSystem.Domain;
+package com.ManagementSystem.Domain;
 
+import com.ManagementSystem.Domain.ValueObject.*;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import src.ManagementSystem.DTOs.AssetCreationDTO;
-import src.ManagementSystem.Domain.Converter.PropertyListConverter;
-import src.ManagementSystem.Domain.ValueObject.*;
+import com.ManagementSystem.DTOs.AssetCreationDTO;
+import com.ManagementSystem.Domain.Converter.PropertyListConverter;
+import com.ManagementSystem.Domain.ValueObject.*;
 
 import java.util.List;
 import java.util.UUID;

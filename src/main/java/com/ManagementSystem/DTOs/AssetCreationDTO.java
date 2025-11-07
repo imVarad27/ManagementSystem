@@ -1,9 +1,8 @@
-package src.ManagementSystem.DTOs;
+package com.ManagementSystem.DTOs;
 
+import com.ManagementSystem.Domain.ValueObject.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
-import src.ManagementSystem.Domain.ValueObject.*;
 
 import java.util.List;
 
