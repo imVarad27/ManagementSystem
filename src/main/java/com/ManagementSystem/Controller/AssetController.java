@@ -1,15 +1,15 @@
 package com.ManagementSystem.Controller;
 
+import com.ManagementSystem.DTOs.AssetReadDto;
 import org.springframework.http.ResponseEntity;
 import com.ManagementSystem.DTOs.AssetCreationDTO;
 import com.ManagementSystem.Domain.Asset;
 import com.ManagementSystem.Services.AssetService;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/asset")
@@ -23,6 +23,11 @@ public class AssetController {
 
             Asset createdAsset = assetService.createAsset(asset);
             return ResponseEntity.ok(createdAsset);
+    }
+
+    @GetMapping
+    public List<AssetReadDto> getAllAssets(){
+        return assetService.getAssets();
     }
 
 }
