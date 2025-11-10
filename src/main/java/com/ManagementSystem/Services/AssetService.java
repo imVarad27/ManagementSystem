@@ -45,4 +45,13 @@ public class AssetService {
         }
     }
 
+    public AssetReadDto getAssetByPhysicalId(String assetPhysicalId){
+        try{
+            return new AssetReadDto(assetRepository.findByPhysicalId_Id(assetPhysicalId));
+        }
+        catch(Exception ex){
+            throw new RuntimeException(ex);
+        }
+    }
+
 }

@@ -9,8 +9,4 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MaterialType {
     private String type;
-
-    public MaterialType(String type) {
-        this.type = type;
-    }
 }

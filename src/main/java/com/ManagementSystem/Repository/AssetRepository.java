@@ -6,5 +6,5 @@ import com.ManagementSystem.Domain.Asset;
 import java.util.Optional;
 
 public interface AssetRepository extends JpaRepository<Asset, String> {
-    Optional<Asset> findByAssetId(String assetId);
+    Asset findByPhysicalId_Id(String id);
 }

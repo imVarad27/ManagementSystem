@@ -26,7 +26,10 @@ public class AssetController {
     }
 
     @GetMapping
-    public List<AssetReadDto> getAllAssets(){
+    public Object getAssets(@RequestParam(required = false) String physicalId) {
+        if (physicalId != null) {
+            return assetService.getAssetByPhysicalId(physicalId);
+        }
         return assetService.getAssets();
     }
 
