@@ -52,7 +52,7 @@ public class Asset {
     private List<Property> properties;
 
     @ElementCollection
-    @CollectionTable(name = "asset_report_refs")
+    @CollectionTable (name = "asset_report_refs")
     @Column(name = "report_reference_id")
     private List<String> reportReferenceIds;
 

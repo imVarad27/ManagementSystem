@@ -1,4 +1,8 @@
 package com.ManagementSystem.Domain.ValueObject;
 
-public record AssetPhysicalId(String id) {
+import jakarta.persistence.Column;
+
+public record AssetPhysicalId(
+        @Column (nullable = false, unique = true)
+        String id) {
 }
