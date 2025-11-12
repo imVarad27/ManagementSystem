@@ -58,14 +58,14 @@ public class Asset {
 
     public Asset(AssetCreationDTO dto) {
         this.assetId = UUID.randomUUID().toString();
-        this.assetName = dto.getAssetName();
-        this.physicalId = dto.getPhysicalId();
-        this.type = dto.getType();
-        this.subType = dto.getSubType();
-        this.assemblyCreationSupported = dto.isAssemblyCreationSupported();
-        this.lifeStage = dto.getLifeStage();
-        this.location = dto.getLocation();
-        this.properties = dto.getProperties();
-        this.reportReferenceIds = dto.getReportReferenceIds();
+        this.assetName = dto.assetName();
+        this.physicalId = dto.physicalId();
+        this.type = dto.type();
+        this.subType = dto.subType();
+        this.assemblyCreationSupported = dto.assemblyCreationSupported();
+        this.lifeStage = dto.lifeStage();
+        this.location = dto.location();
+        this.properties = dto.properties();
+        this.reportReferenceIds = dto.reportReferenceIds();
     }
 }

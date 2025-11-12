@@ -1,57 +1,40 @@
 package com.ManagementSystem.Services;
 
-import com.ManagementSystem.DTOs.AssetReadDto;
-import org.springframework.dao.DataAccessException;
 import com.ManagementSystem.DTOs.AssetCreationDTO;
+import com.ManagementSystem.DTOs.AssetReadDto;
 import com.ManagementSystem.Domain.Asset;
 import com.ManagementSystem.Domain.ValueObject.Property;
 import com.ManagementSystem.Repository.AssetRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor // replaces @Autowired
+@Transactional // ensures atomic DB operations
 public class AssetService {
-    @Autowired
-    private AssetRepository assetRepository;
 
-    public Asset createAsset(AssetCreationDTO assetCreationDTO) {
-        try {
-            Asset asset = new Asset(assetCreationDTO);
+    private final AssetRepository assetRepository;
 
-            if (assetCreationDTO.getProperties() != null) {
-                for (Property property : assetCreationDTO.getProperties()) {
-                    Property.validateProperty(property);
-                }
-            }
-
-            return assetRepository.save(asset);
-        } catch (DataAccessException e) {
-            throw new RuntimeException("Failed to save asset", e);
+    public Asset createAsset(AssetCreationDTO dto) {
+        if (dto.properties() != null) {
+            dto.properties().forEach(Property::validateProperty);
         }
+        return assetRepository.save(new Asset(dto));
     }
 
-    public List<AssetReadDto> getAssets(){
-        try {
-            List<Asset> allAssets = assetRepository.findAll();
-
-            return allAssets.stream()
-                            .map(AssetReadDto::new)
-                            .collect(Collectors.toList());
-        }
-        catch (DataAccessException e) {
-            throw new RuntimeException("Failed to get asset", e);
-        }
+    @Transactional(readOnly = true)
+    public List<AssetReadDto> getAssets() {
+        return assetRepository.findAll()
+                .stream()
+                .map(AssetReadDto::new)
+                .toList(); // modern Java 17+
     }
 
-    public AssetReadDto getAssetByPhysicalId(String assetPhysicalId){
-        try{
-            return new AssetReadDto(assetRepository.findByPhysicalId_Id(assetPhysicalId));
-        }
-        catch(Exception ex){
-            throw new RuntimeException(ex);
-        }
+    @Transactional(readOnly = true)
+    public AssetReadDto getAssetByPhysicalId(String physicalId) {
+        return new AssetReadDto(assetRepository.findByPhysicalId_Id(physicalId));
     }
-
 }
