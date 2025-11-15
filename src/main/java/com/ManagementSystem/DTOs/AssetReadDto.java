@@ -3,10 +3,12 @@ package com.ManagementSystem.DTOs;
 import com.ManagementSystem.Domain.Asset;
 import com.ManagementSystem.Domain.ValueObject.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Getter
+@NoArgsConstructor
 public class AssetReadDto {
     private String assetName;
     private AssetPhysicalId physicalId;
@@ -17,8 +19,6 @@ public class AssetReadDto {
     private LifeStage lifeStage;
     private List<Property> properties;
     private List<String> reportReferenceIds;
-
-    public AssetReadDto (){}
 
     public AssetReadDto(Asset asset) {
         this.assetName = asset.getAssetName();

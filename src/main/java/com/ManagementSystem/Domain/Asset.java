@@ -1,5 +1,6 @@
 package com.ManagementSystem.Domain;
 
+import com.ManagementSystem.DTOs.AssetUpdateDto;
 import com.ManagementSystem.Domain.ValueObject.*;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -68,4 +69,17 @@ public class Asset {
         this.properties = dto.properties();
         this.reportReferenceIds = dto.reportReferenceIds();
     }
+
+    public void updateFromDto(AssetUpdateDto dto) {
+        this.assetName = dto.assetName();
+        this.physicalId = dto.physicalId();
+        this.type = dto.type();
+        this.subType = dto.subType();
+        this.assemblyCreationSupported = dto.assemblyCreationSupported();
+        this.lifeStage = dto.lifeStage();
+        this.location = dto.location();
+        this.properties = dto.properties();
+        this.reportReferenceIds = dto.reportReferenceIds();
+    }
+
 }
