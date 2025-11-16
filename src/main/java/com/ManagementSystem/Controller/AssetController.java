@@ -1,5 +1,6 @@
 package com.ManagementSystem.Controller;
 
+import com.ManagementSystem.DTOs.AssetUpdateDto;
 import org.springframework.http.ResponseEntity;
 import com.ManagementSystem.DTOs.AssetCreationDTO;
 import com.ManagementSystem.Domain.Asset;
@@ -28,6 +29,15 @@ public class AssetController {
             return assetService.getAssetByPhysicalId(physicalId);
         }
         return assetService.getAssets();
+    }
+
+    @PutMapping
+    public ResponseEntity<?> updateAsset(
+            @RequestParam String assetId,
+            @Valid @RequestBody AssetUpdateDto assetUpdateDto) {
+
+        Asset updated = assetService.updateAsset(assetId, assetUpdateDto);
+        return ResponseEntity.ok(updated);
     }
 
 

@@ -40,12 +40,18 @@ public class AssetService {
     }
 
     @Transactional
-    public Asset updateAsset(String assetId, AssetUpdateDto assetUpdateDto){
+    public Asset updateAsset(String assetId, AssetUpdateDto dto) {
+
         Asset asset = assetRepository.findById(assetId)
                 .orElseThrow(() -> new RuntimeException("Asset not found"));
 
-        asset.updateFromDto(assetUpdateDto);
+        if (dto.properties() != null) {
+            dto.properties().forEach(Property::validateProperty);
+        }
+
+        asset.updateFromDto(dto);
 
         return assetRepository.save(asset);
     }
+
 }
