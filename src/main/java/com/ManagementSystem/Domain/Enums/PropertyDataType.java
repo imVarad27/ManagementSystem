@@ -1,4 +1,4 @@
-package src.ManagementSystem.Domain.Enums;
+package com.ManagementSystem.Domain.Enums;
 
 public enum PropertyDataType {
     String,

@@ -1,12 +1,14 @@
-package src.ManagementSystem.Domain;
+package com.ManagementSystem.Domain;
 
+import com.ManagementSystem.DTOs.AssetUpdateDto;
+import com.ManagementSystem.Domain.ValueObject.*;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import src.ManagementSystem.DTOs.AssetCreationDTO;
-import src.ManagementSystem.Domain.Converter.PropertyListConverter;
-import src.ManagementSystem.Domain.ValueObject.*;
+import com.ManagementSystem.DTOs.AssetCreationDTO;
+import com.ManagementSystem.Domain.Converter.PropertyListConverter;
+import com.ManagementSystem.Domain.ValueObject.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -51,20 +53,33 @@ public class Asset {
     private List<Property> properties;
 
     @ElementCollection
-    @CollectionTable(name = "asset_report_refs")
+    @CollectionTable (name = "asset_report_refs")
     @Column(name = "report_reference_id")
     private List<String> reportReferenceIds;
 
     public Asset(AssetCreationDTO dto) {
         this.assetId = UUID.randomUUID().toString();
-        this.assetName = dto.getAssetName();
-        this.physicalId = dto.getPhysicalId();
-        this.type = dto.getType();
-        this.subType = dto.getSubType();
-        this.assemblyCreationSupported = dto.isAssemblyCreationSupported();
-        this.lifeStage = dto.getLifeStage();
-        this.location = dto.getLocation();
-        this.properties = dto.getProperties();
-        this.reportReferenceIds = dto.getReportReferenceIds();
+        this.assetName = dto.assetName();
+        this.physicalId = dto.physicalId();
+        this.type = dto.type();
+        this.subType = dto.subType();
+        this.assemblyCreationSupported = dto.assemblyCreationSupported();
+        this.lifeStage = dto.lifeStage();
+        this.location = dto.location();
+        this.properties = dto.properties();
+        this.reportReferenceIds = dto.reportReferenceIds();
     }
+
+    public void updateFromDto(AssetUpdateDto dto) {
+        this.assetName = dto.assetName();
+        this.physicalId = dto.physicalId();
+        this.type = dto.type();
+        this.subType = dto.subType();
+        this.assemblyCreationSupported = dto.assemblyCreationSupported();
+        this.lifeStage = dto.lifeStage();
+        this.location = dto.location();
+        this.properties = dto.properties();
+        this.reportReferenceIds = dto.reportReferenceIds();
+    }
+
 }
