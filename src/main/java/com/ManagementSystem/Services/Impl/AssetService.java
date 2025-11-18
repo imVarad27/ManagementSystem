@@ -1,4 +1,4 @@
-package com.ManagementSystem.Services;
+package com.ManagementSystem.Services.Impl;
 
 import com.ManagementSystem.DTOs.AssetCreationDTO;
 import com.ManagementSystem.DTOs.AssetReadDto;
@@ -6,6 +6,7 @@ import com.ManagementSystem.DTOs.AssetUpdateDto;
 import com.ManagementSystem.Domain.Asset;
 import com.ManagementSystem.Domain.ValueObject.Property;
 import com.ManagementSystem.Repository.AssetRepository;
+import com.ManagementSystem.Services.IAssetService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +16,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor // replaces @Autowired
 @Transactional // ensures atomic DB operations
-public class AssetService {
+public class AssetService implements IAssetService {
 
     private final AssetRepository assetRepository;
 
