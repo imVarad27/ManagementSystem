@@ -5,7 +5,6 @@ import com.ManagementSystem.Domain.ValueObject.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
@@ -33,9 +32,7 @@ public record AssetCreationDTO(
     @Valid
     LifeStage lifeStage,
 
-    @Size(max = 50, message = "Maximum 50 properties allowed")
     List<@Valid Property> properties,
 
-    @Size(max = 50, message = "Maximum 50 report reference IDs allowed")
     List<@NotBlank(message = "Report reference ID must not be blank") String> reportReferenceIds
 ) {}
