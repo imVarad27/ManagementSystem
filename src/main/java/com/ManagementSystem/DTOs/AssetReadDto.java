@@ -4,12 +4,10 @@ import com.ManagementSystem.Domain.Asset;
 import com.ManagementSystem.Domain.ValueObject.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.List;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class AssetReadDto {
     private String assetName;
@@ -22,5 +20,15 @@ public class AssetReadDto {
     private List<Property> properties;
     private List<String> reportReferenceIds;
 
-  
+    public AssetReadDto(Asset asset) {
+        this.assetName = asset.getAssetName();
+        this.physicalId = asset.getPhysicalId();
+        this.type = asset.getType();
+        this.subType = asset.getSubType();
+        this.location = asset.getLocation();
+        this.assemblyCreationSupported = asset.isAssemblyCreationSupported();
+        this.lifeStage = asset.getLifeStage();
+        this.properties = asset.getProperties();
+        this.reportReferenceIds = asset.getReportReferenceIds();
+    }
 }
