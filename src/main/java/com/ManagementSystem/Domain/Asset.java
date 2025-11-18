@@ -57,29 +57,6 @@ public class Asset {
     @Column(name = "report_reference_id")
     private List<String> reportReferenceIds;
 
-    public Asset(AssetCreationDTO dto) {
-        this.assetId = UUID.randomUUID().toString();
-        this.assetName = dto.assetName();
-        this.physicalId = dto.physicalId();
-        this.type = dto.type();
-        this.subType = dto.subType();
-        this.assemblyCreationSupported = dto.assemblyCreationSupported();
-        this.lifeStage = dto.lifeStage();
-        this.location = dto.location();
-        this.properties = dto.properties();
-        this.reportReferenceIds = dto.reportReferenceIds();
-    }
-
-    public void updateFromDto(AssetUpdateDto dto) {
-        this.assetName = dto.assetName();
-        this.physicalId = dto.physicalId();
-        this.type = dto.type();
-        this.subType = dto.subType();
-        this.assemblyCreationSupported = dto.assemblyCreationSupported();
-        this.lifeStage = dto.lifeStage();
-        this.location = dto.location();
-        this.properties = dto.properties();
-        this.reportReferenceIds = dto.reportReferenceIds();
-    }
+   
 
 }
