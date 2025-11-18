@@ -64,6 +64,8 @@ public class AssetServiceImpl implements AssetService {
             dto.properties().forEach(Property::validateProperty);
         }
 
+        this.assetMapper.updateFromDto(dto, asset);
+        this.assetRepository.save(asset);
         return this.assetMapper.toReadDto(asset);
 
        
