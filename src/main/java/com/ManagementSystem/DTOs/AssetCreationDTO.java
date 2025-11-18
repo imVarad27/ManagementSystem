@@ -6,8 +6,8 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-import java.util.List;
 
+import java.util.List;
 public record AssetCreationDTO(
     @NotBlank(message = "Asset name must not be blank")
     String assetName,

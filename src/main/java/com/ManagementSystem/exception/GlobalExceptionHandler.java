@@ -1,7 +1,8 @@
 package com.ManagementSystem.exception;
 
-import com.ManagementSystem.DTOs.ApiError;
-import com.ManagementSystem.DTOs.ValidationError;
+import com.ManagementSystem.Web.TransportDTOs.ApiError;
+import com.ManagementSystem.Web.TransportDTOs.ValidationError;
+
 import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.http.HttpMethod;

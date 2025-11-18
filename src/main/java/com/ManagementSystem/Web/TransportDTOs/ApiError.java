@@ -1,4 +1,4 @@
-package com.ManagementSystem.DTOs;
+package com.ManagementSystem.Web.TransportDTOs;
 
 import java.time.Instant;
 import java.util.List;

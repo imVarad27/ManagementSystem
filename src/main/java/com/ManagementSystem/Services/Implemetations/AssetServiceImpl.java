@@ -11,19 +11,26 @@ import com.ManagementSystem.Services.AssetService;
 import com.ManagementSystem.exception.ResourceNotFoundException;
 
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor // replaces @Autowired
-@Transactional // ensures atomic DB operations
+@RequiredArgsConstructor 
+@Transactional 
+@CacheConfig(cacheNames = "assets")
 public class AssetServiceImpl implements AssetService {
 
     private final AssetRepository assetRepository;
     private final AssetMapper assetMapper;
 
+     @CachePut(key = "#result.physicalId")
     public AssetReadDto createAsset(AssetCreationDTO dto) {
         if (dto.properties() != null) {
             dto.properties().forEach(Property::validateProperty);
@@ -40,6 +47,8 @@ public class AssetServiceImpl implements AssetService {
                 
     }
 
+   
+    @Cacheable(key = "#physicalId")
    @Transactional(readOnly = true)
     public AssetReadDto getAssetByPhysicalId(String physicalId) {
     Asset asset = assetRepository
@@ -49,6 +58,7 @@ public class AssetServiceImpl implements AssetService {
     return this.assetMapper.toReadDto(asset); 
 }
 
+    @CachePut(key = "#result.physicalId")
   @Transactional
 public AssetReadDto updateAsset(String assetId, AssetUpdateDto dto) {
     if (assetId == null) {
@@ -67,6 +77,7 @@ public AssetReadDto updateAsset(String assetId, AssetUpdateDto dto) {
     return assetMapper.toReadDto(asset);
 }
 
+    @CacheEvict(key = "#physicalId")
    @Transactional
 public void deleteByPhysicalId(String physicalId) {
     if (physicalId == null) {

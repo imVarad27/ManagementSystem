@@ -1,4 +1,4 @@
-package com.ManagementSystem.DTOs;
+package com.ManagementSystem.Web.TransportDTOs;
 
 public record ValidationError(
     String field,
