@@ -7,6 +7,5 @@ import com.ManagementSystem.Domain.Asset;
 
 public interface AssetRepository extends JpaRepository<Asset, String> {
     Optional<Asset> findByPhysicalId_Id(String id);
-   
     
 }

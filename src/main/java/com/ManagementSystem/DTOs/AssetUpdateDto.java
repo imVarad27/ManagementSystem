@@ -28,9 +28,7 @@ public record AssetUpdateDto(
     @Valid
     LifeStage lifeStage,
 
-    @Size(max = 50, message = "Maximum 50 properties allowed")
     List<@Valid Property> properties,
 
-    @Size(max = 50, message = "Maximum 50 report reference IDs allowed")
     List<@NotBlank(message = "Report reference ID must not be blank") String> reportReferenceIds
 ) {}
