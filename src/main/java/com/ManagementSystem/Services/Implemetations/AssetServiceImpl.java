@@ -44,50 +44,49 @@ public class AssetServiceImpl implements AssetService {
     public List<AssetReadDto> getAssets() {
         List<Asset> assets =  assetRepository.findAll();
         return this.assetMapper.tReadDtoList(assets);
-                
     }
 
    
     @Cacheable(key = "#physicalId")
    @Transactional(readOnly = true)
     public AssetReadDto getAssetByPhysicalId(String physicalId) {
-    Asset asset = assetRepository
-        .findByPhysicalId_Id(physicalId)
-        .orElseThrow(() -> new ResourceNotFoundException("Asset", "physicalId", physicalId));
+        Asset asset = assetRepository
+            .findByPhysicalId_Id(physicalId)
+            .orElseThrow(() -> new ResourceNotFoundException("Asset", "physicalId", physicalId));
 
-    return this.assetMapper.toReadDto(asset); 
-}
+        return this.assetMapper.toReadDto(asset);
+    }
 
     @CachePut(key = "#result.physicalId")
-  @Transactional
-public AssetReadDto updateAsset(String assetId, AssetUpdateDto dto) {
-    if (assetId == null) {
-        throw new ResourceNotFoundException("assetId", null);
+    @Transactional
+    public AssetReadDto updateAsset(String assetId, AssetUpdateDto dto) {
+        if (assetId == null) {
+            throw new ResourceNotFoundException("assetId", null);
+        }
+
+        if (dto.properties() != null) {
+            dto.properties().forEach(Property::validateProperty);
+        }
+        Asset asset = assetRepository.findById(assetId)
+            .orElseThrow(() -> new ResourceNotFoundException("Asset", "id", assetId));
+
+        assetMapper.updateFromDto(dto, asset);
+
+        asset = assetRepository.save(asset);
+        return assetMapper.toReadDto(asset);
     }
-
-    if (dto.properties() != null) {
-        dto.properties().forEach(Property::validateProperty);
-    }
-    Asset asset = assetRepository.findById(assetId)
-        .orElseThrow(() -> new ResourceNotFoundException("Asset", "id", assetId));
-
-    assetMapper.updateFromDto(dto, asset);
-
-    asset = assetRepository.save(asset);
-    return assetMapper.toReadDto(asset);
-}
 
     @CacheEvict(key = "#physicalId")
-   @Transactional
-public void deleteByPhysicalId(String physicalId) {
-    if (physicalId == null) {
-        throw new ResourceNotFoundException("Asset", "id", null);
+    @Transactional
+    public void deleteByPhysicalId(String physicalId) {
+        if (physicalId == null) {
+            throw new ResourceNotFoundException("Asset", "id", null);
+        }
+
+        Asset asset = assetRepository.findByPhysicalId_Id(physicalId)
+            .orElseThrow(() -> new ResourceNotFoundException("Asset", "id", physicalId));
+
+        assetRepository.delete(asset);
     }
-
-    Asset asset = assetRepository.findByPhysicalId_Id(physicalId)
-        .orElseThrow(() -> new ResourceNotFoundException("Asset", "id", physicalId));
-
-    assetRepository.delete(asset);
-}
 
 }

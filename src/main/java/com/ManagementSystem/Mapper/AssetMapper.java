@@ -20,6 +20,4 @@ public interface AssetMapper {
     void updateFromDto(AssetUpdateDto dto,@MappingTarget Asset asset);
     AssetReadDto toReadDto(Asset asset);
     List<AssetReadDto> tReadDtoList(List<Asset> assets);
-    
-    
 }
