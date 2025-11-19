@@ -34,5 +34,5 @@ public record AssetCreationDTO(
 
     List<@Valid Property> properties,
 
-    List<@NotBlank(message = "Report reference ID must not be blank") String> reportReferenceIds
+    List<String> reportReferenceIds
 ) {}

@@ -2,7 +2,6 @@ package com.ManagementSystem.DTOs;
 
 import com.ManagementSystem.Domain.ValueObject.*;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
 import java.util.List;
@@ -30,5 +29,5 @@ public record AssetUpdateDto(
 
     List<@Valid Property> properties,
 
-    List<@NotBlank(message = "Report reference ID must not be blank") String> reportReferenceIds
+    List<String> reportReferenceIds
 ) {}
