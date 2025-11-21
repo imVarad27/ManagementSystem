@@ -1,14 +1,11 @@
 package com.ManagementSystem.Domain;
 
-import com.ManagementSystem.DTOs.AssetUpdateDto;
 import com.ManagementSystem.Domain.ValueObject.*;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import com.ManagementSystem.DTOs.AssetCreationDTO;
 import com.ManagementSystem.Domain.Converter.PropertyListConverter;
-import com.ManagementSystem.Domain.ValueObject.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -56,30 +53,4 @@ public class Asset {
     @CollectionTable (name = "asset_report_refs")
     @Column(name = "report_reference_id")
     private List<String> reportReferenceIds;
-
-    public Asset(AssetCreationDTO dto) {
-        this.assetId = UUID.randomUUID().toString();
-        this.assetName = dto.assetName();
-        this.physicalId = dto.physicalId();
-        this.type = dto.type();
-        this.subType = dto.subType();
-        this.assemblyCreationSupported = dto.assemblyCreationSupported();
-        this.lifeStage = dto.lifeStage();
-        this.location = dto.location();
-        this.properties = dto.properties();
-        this.reportReferenceIds = dto.reportReferenceIds();
-    }
-
-    public void updateFromDto(AssetUpdateDto dto) {
-        this.assetName = dto.assetName();
-        this.physicalId = dto.physicalId();
-        this.type = dto.type();
-        this.subType = dto.subType();
-        this.assemblyCreationSupported = dto.assemblyCreationSupported();
-        this.lifeStage = dto.lifeStage();
-        this.location = dto.location();
-        this.properties = dto.properties();
-        this.reportReferenceIds = dto.reportReferenceIds();
-    }
-
 }

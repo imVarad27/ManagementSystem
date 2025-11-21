@@ -1,44 +1,56 @@
 package com.ManagementSystem.Controller;
 
-import com.ManagementSystem.DTOs.AssetUpdateDto;
-import com.ManagementSystem.Services.IAssetService;
-import org.springframework.http.ResponseEntity;
 import com.ManagementSystem.DTOs.AssetCreationDTO;
-import com.ManagementSystem.Domain.Asset;
-import org.springframework.web.bind.annotation.*;
+import com.ManagementSystem.DTOs.AssetReadDto;
+import com.ManagementSystem.DTOs.AssetUpdateDto;
+import com.ManagementSystem.Services.AssetService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/asset")
 public class AssetController {
 
-    @Autowired
-    private IAssetService assetService;
+    private final AssetService assetService;
+
+    
+
+    public AssetController(AssetService assetService) {
+        this.assetService = assetService;
+    }
 
     @PostMapping
-    public ResponseEntity<?> createAsset(@Valid @RequestBody AssetCreationDTO asset) {
+    public ResponseEntity<AssetReadDto> createAsset(@Valid @RequestBody AssetCreationDTO asset) {
+        AssetReadDto createdAsset = assetService.createAsset(asset);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdAsset);
+    }
 
-            Asset createdAsset = assetService.createAsset(asset);
-            return ResponseEntity.ok(createdAsset);
+    @GetMapping("/{physicalId}")
+    public ResponseEntity<AssetReadDto> getByPhysicalId(@PathVariable String physicalId) {
+        return ResponseEntity.ok(assetService.getAssetByPhysicalId(physicalId));
     }
 
     @GetMapping
-    public Object getAssets(@RequestParam(required = false) String physicalId) {
-        if (physicalId != null) {
-            return assetService.getAssetByPhysicalId(physicalId);
-        }
-        return assetService.getAssets();
+    public ResponseEntity<List<AssetReadDto>> getAssets() {
+        List<AssetReadDto> assetReadDto = assetService.getAssets();
+        return ResponseEntity.ok(assetReadDto);
     }
 
     @PutMapping
-    public ResponseEntity<?> updateAsset(
+    public ResponseEntity<AssetReadDto> updateAsset(
             @RequestParam String assetId,
             @Valid @RequestBody AssetUpdateDto assetUpdateDto) {
-
-        Asset updated = assetService.updateAsset(assetId, assetUpdateDto);
+        AssetReadDto updated = assetService.updateAsset(assetId, assetUpdateDto);
         return ResponseEntity.ok(updated);
     }
 
-
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteAssetById(@PathVariable String id) {
+        assetService.deleteByPhysicalId(id);
+        return ResponseEntity.noContent().build();
+    }
 }

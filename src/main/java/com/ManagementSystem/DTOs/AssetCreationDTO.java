@@ -1,16 +1,38 @@
 package com.ManagementSystem.DTOs;
 
-import com.ManagementSystem.Domain.ValueObject.*;
-import java.util.List;
 
+import com.ManagementSystem.Domain.ValueObject.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+
+import java.util.List;
 public record AssetCreationDTO(
-        String assetName,
-        AssetPhysicalId physicalId,
-        MaterialType type,
-        MaterialType subType,
-        Location location,
-        boolean assemblyCreationSupported,
-        LifeStage lifeStage,
-        List<Property> properties,
-        List<String> reportReferenceIds
+    @NotBlank(message = "Asset name must not be blank")
+    String assetName,
+
+    @NotNull(message = "Physical ID must not be null")
+    @Valid
+    AssetPhysicalId physicalId,
+
+    @Valid
+    MaterialType type,
+
+    @Valid
+    MaterialType subType,
+
+    @NotNull(message = "Location must not be null")
+    @Valid
+    Location location,
+
+    @NotNull(message = "Assembly creation flag must not be null")
+    Boolean assemblyCreationSupported,
+
+    @Valid
+    LifeStage lifeStage,
+
+    List<@Valid Property> properties,
+
+    List<String> reportReferenceIds
 ) {}
